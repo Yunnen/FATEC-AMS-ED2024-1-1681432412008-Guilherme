@@ -1,0 +1,38 @@
+/*------------------------------------------------------------------------*/
+/*   FATEC-São Caetano do Sul                 Estrutura de Dados          */
+/*                         Guilherme Gallo Migliorini                     */
+/*             Objetivo: Desconto de Loja                                 */
+/*             Paradigama: - programação Estruturada com ponteiro         */
+/*                                                                        */
+/*                                                         Data:12/03/2024*/
+/*------------------------------------------------------------------------*/ 
+
+#include <stdio.h>
+
+double descontar(double *preco, int *desconto) {
+
+  printf("Ponteiro do Preço %p\n", preco);
+  printf("Ponteiro do Desconto %p\n", desconto);
+
+  return *preco - (*preco * (*desconto) / 100.0);
+}
+
+int main(void) {
+  double preco;
+  int desconto;
+
+  printf("\ndigite o preço do produto: ");
+  scanf("%lf", &preco);
+
+  printf("\ndigite o desconto do produto: ");
+  scanf("%d", &desconto);
+
+  double *ponPreco = &preco;
+  int *ponDesconto = &desconto;
+
+  printf("Preço: %.2lf\n", preco);
+  printf("Desconto: %d\n", desconto);
+  printf("Preço com desconto: %.2lf", descontar(ponPreco, ponDesconto));
+
+  return 0;
+}
