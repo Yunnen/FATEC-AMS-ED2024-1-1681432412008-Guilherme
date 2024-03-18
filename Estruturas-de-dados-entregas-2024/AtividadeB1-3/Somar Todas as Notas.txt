@@ -1,0 +1,45 @@
+/*------------------------------------------------------------------------*/
+/*   FATEC-São Caetano do Sul                 Estrutura de Dados          */
+/*                         Guilherme Gallo Migliorini                     */
+/*             Objetivo: Somar toda as notas                              */
+/*             Paradigama: - programação modular                          */
+/*                                                                        */
+/*                                                         Data:18/03/2024*/
+/*------------------------------------------------------------------------*/
+
+#include <stdio.h>
+
+float notas[5];
+int qnt_Notas = sizeof(notas) / sizeof(int);
+float *pon_Notas;
+
+float soma_Notas(float *pon_Notas){
+    float soma;
+
+  for (int i = 0; i < qnt_Notas; i++){
+    soma+= *(pon_Notas+i);
+    
+  }
+  return soma;
+}
+
+
+int main(void) {
+
+  for (int i = 0; i < qnt_Notas; i++){
+    printf("Insira a nota: %d\n",i+1);
+    scanf("%f", &notas[i]);
+  }
+
+  pon_Notas = notas;
+
+  //Verificar todos os valores dentro da array usando o ponteiro
+  for (int i = 0; i < qnt_Notas; i++){
+
+    printf("Nota %d: %.2f\n", i + 1 , *(pon_Notas + i));
+
+  }
+
+  printf("A soma de todas as notas é: %.2f", soma_Notas(pon_Notas));
+
+}
