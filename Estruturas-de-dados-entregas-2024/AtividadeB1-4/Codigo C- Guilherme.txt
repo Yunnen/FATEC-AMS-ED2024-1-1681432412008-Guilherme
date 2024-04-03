@@ -1,0 +1,144 @@
+/*------------------------------------------------------------------------*/
+/*   FATEC-São Caetano do Sul                 Estrutura de Dados          */
+/*                         Guilherme Gallo Migliorini                     */
+/*             Objetivo: Inserir,Listar,Consultar e excluir Alunos        */
+/*             Paradigama: - Programação com Lista Simplesmente Encadeada */
+/*                                                                        */
+/*                                                         Data:02/04/2024*/
+/*------------------------------------------------------------------------*/ 
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct no {
+  int id;
+  struct no* prox;
+};
+typedef struct no No;
+
+int menu();
+void inserir(No **Inicio);
+int listar(No *Inicio);
+int consultar(No *Inicio, int id);
+void excluir(No **Inicio);
+
+int main(void) {
+  No *Inicio = NULL;
+  int opt;
+  int id;
+  do {
+    opt = menu();
+
+    switch (opt) {
+      case 1: inserir(&Inicio);
+              break;
+      case 2: 
+            printf("\nDigite o id do aluno para consulta: ");
+            scanf("%d", &id);
+            consultar(Inicio, id);
+            break;
+      case 3: excluir(&Inicio);
+              break;
+      case 4: listar(Inicio);
+              break;
+    }
+  } while (opt);
+
+  printf("\nObrigado por usar o Programa! :D");
+  exit(0);
+}
+
+int menu() {
+  printf("1-Inserir um aluno\n2-Consultar\n3-Excluir\n4-Listar todos os alunos\n0-Sair\n\n");
+  int opt;
+  scanf("%d", &opt);
+  return opt;
+}
+
+
+void inserir(No **Inicio) {
+  No *Lista = (No*)malloc(sizeof(No));
+  if (!Lista) {
+    exit(1);
+  }
+
+  int id;
+  printf("\nDigite o id do aluno: ");
+  scanf("%d", &id);
+  
+  if (id < 0){ printf("\nO Id do Aluno não pode ser negativo! >:O(\n\n"); return;};
+  
+  No *temp = *Inicio;
+  while (temp != NULL){
+    if (temp->id == id){
+      printf("\nAluno já cadastrado!\n\n");
+      return;
+    }
+    temp = temp->prox;
+  }
+
+  Lista->id = id;
+  Lista->prox = *Inicio;
+  *Inicio = Lista;
+    printf("\nAluno cadastrado com sucessso :)\n\n");
+}
+
+int listar(No *Inicio) {
+  if (Inicio == NULL){ printf("\nNenhum Aluno cadastrado :(\n\n"); return 0;};
+  while (Inicio != NULL) {
+    printf("Id: %d\n", Inicio->id);
+    Inicio = Inicio->prox;
+  }
+  return 1;
+}
+
+int consultar(No *Inicio, int id) {
+  
+  while (Inicio != NULL){
+    if (Inicio->id == id){
+      printf("\nInformações do Aluno Selecionado \nID: %d\n\n", Inicio->id);
+      return 1;
+    }
+    else{
+      Inicio = Inicio->prox;
+    }
+  }
+   printf("Aluno não encontrado! :(\n\n");
+  return 0;
+}
+
+void excluir(No **Inicio){
+
+  int id;
+  int exc;
+  
+  if(*Inicio == NULL){ printf("\nNenhum Aluno cadastrado para exclusão :(\n\n"); return; }
+   printf("\nDigite o id do aluno para exclusão: ");
+    scanf("%d", &id);
+   if(!consultar(*Inicio, id)){
+       return;
+     }
+    printf("Tem certeza que deseja exluir o aluno? (1-Sim/0-Não)\n");
+    scanf("%d", &exc);
+
+  if (exc) {
+    
+    No *atual = *Inicio;
+    No *anterior = NULL;
+
+    while (atual != NULL && atual->id != id) {
+      anterior = atual;
+      atual = atual->prox;
+    }
+
+    if (anterior == NULL) {
+      *Inicio = atual->prox;
+    } else {
+      anterior->prox = atual->prox;
+    }
+
+    free(atual);
+    printf("Aluno excluído com sucesso!\n\n");
+  }
+}
