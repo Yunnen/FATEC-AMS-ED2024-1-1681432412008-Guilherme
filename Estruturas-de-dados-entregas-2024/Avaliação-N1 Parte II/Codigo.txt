@@ -1,3 +1,13 @@
+/*------------------------------------------------------------------------*/
+/*   FATEC-São Caetano do Sul                 Estrutura de Dados          */
+/*                                         Guilherme Gallo Migliorini     */
+/*                                         Pedro Coelho do Nascimento     */
+/*             Objetivo: Cadastro de Pacotes                              */
+/*             Paradigama: Alterar,Cadastrar e excluir(Não fisica)        */
+/*             Com lista ligadas                                          */
+/*                                                         Data:14/04/2024*/
+/*------------------------------------------------------------------------*/ 
+
 #include <stdio.h>
 #include <stdlib.h>
 
